@@ -1,17 +1,17 @@
 package romulofranc0.movie_tracker.infra.security.services;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import org.bouncycastle.math.ec.rfc8032.Ed25519;
+import java.time.Instant;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.stream.Collectors;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 @Service
 public class TokenService {
@@ -32,20 +32,21 @@ public class TokenService {
                             .collect(Collectors.toList()))
                     .withExpiresAt(generateExpirationTime())
                     .sign(algorithm);
-        }catch(JWTCreationException exception){
-            throw new RuntimeException("Error generating token",exception);
+        } catch (JWTCreationException exception) {
+            throw new RuntimeException("Error generating token", exception);
 
         }
     }
+
     public String validateToken(String token) {
-        try{
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("movie-track")
                     .build()
                     .verify(token)
                     .getSubject();
-        }catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             return "";
         }
     }

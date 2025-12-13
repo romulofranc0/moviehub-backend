@@ -1,11 +1,15 @@
 package romulofranc0.movie_tracker.domain.services;
 
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import romulofranc0.movie_tracker.application.mappers.MovieListMapper;
 import romulofranc0.movie_tracker.application.models.requests.MovieListRequest;
 import romulofranc0.movie_tracker.application.models.responses.MovieListResponse;
@@ -18,9 +22,6 @@ import romulofranc0.movie_tracker.domain.exceptions.MovieNotFoundException;
 import romulofranc0.movie_tracker.infra.repositories.MovieListRepository;
 import romulofranc0.movie_tracker.infra.repositories.MovieRepository;
 
-import java.util.List;
-import java.util.Set;
-
 @RequiredArgsConstructor
 @Service
 public class MovieListService {
@@ -28,7 +29,6 @@ public class MovieListService {
     private final MovieListRepository movieListRepository;
     private final MovieListMapper movieListMapper;
     private final MovieRepository movieRepository;
-
 
     public Set<MovieListResponse> getAllMovieListsFromUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

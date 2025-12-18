@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import romulofranc0.movie_tracker.application.models.responses.MovieResponse;
 import romulofranc0.movie_tracker.application.models.responses.SearchMovieResponse;
 import romulofranc0.movie_tracker.domain.services.OmdbService;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/movie")
 public class MovieController {
 
